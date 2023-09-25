@@ -1,5 +1,12 @@
 import styles from './InvestmentCalculatorTable.module.css'
 
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+})
+
 export default function InvestmentTable(props) {
   const yearlyData = props.yearlyData
   const hasData = yearlyData.length > 0
@@ -17,13 +24,13 @@ export default function InvestmentTable(props) {
         </tr>
       </thead>
       <tbody>
-        {yearlyData.map(({year, yearlyInterest, savingsEndOfYear, yearlyContribution}) => (
-          <tr>
+        {yearlyData.map(({year, yearlyInterest, savingsEndOfYear, totalInterest, investedCapital}) => (
+          <tr key={year}>
             <td>{year}</td>
-            <td>{yearlyInterest}</td>
-            <td>{savingsEndOfYear}</td>
-            <td>{yearlyContribution}</td>
-            <td>{year * yearlyContribution}</td>
+            <td>{formatter.format(savingsEndOfYear)}</td>
+            <td>{formatter.format(yearlyInterest)}</td>
+            <td>{formatter.format(totalInterest)}</td>
+            <td>{formatter.format(investedCapital)}</td>
           </tr>
         ))}
       </tbody>

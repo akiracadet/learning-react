@@ -6,10 +6,11 @@ export default function InvestmentCalculatorForm(props) {
   const calculateUserInput = (userInput) => {
     const yearlyData = []; // per-year results
 
-    let currentSavings = +(userInput['current-savings'].value);
-    const yearlyContribution = +(userInput['yearly-contribution'].value);
-    const expectedReturn = +(userInput['expected-return'].value) / 100;
-    const duration = +(userInput['duration'].value);
+    const initialInvestment = +(userInput['current-savings'].value)
+    let currentSavings = initialInvestment
+    const yearlyContribution = +(userInput['yearly-contribution'].value)
+    const expectedReturn = +(userInput['expected-return'].value) / 100
+    const duration = +(userInput['duration'].value)
 
     // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
@@ -19,7 +20,9 @@ export default function InvestmentCalculatorForm(props) {
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
+        totalInterest: (currentSavings - initialInvestment - yearlyContribution * (i + 1)),
         yearlyContribution: yearlyContribution,
+        investedCapital: (initialInvestment + yearlyContribution * (i + 1))
       });
     }
 
