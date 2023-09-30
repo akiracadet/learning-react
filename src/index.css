@@ -9,3 +9,9 @@ html {
 body {
   margin: 0;
 }
+
+.site {
+  background: black;
+  height: 100vh;
+  padding-top: 50px;
+}
