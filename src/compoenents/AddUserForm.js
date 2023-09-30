@@ -4,13 +4,18 @@ import AgeInput from "./AgeInput";
 import "./styles.css"
 
 export default function AddUserForm(props) {
-  const {setUserList} = props;
+  const {setUserList, setModalOpen, setFormErrors} = props;
   const [userName, setUserName] = useState("");
   const [isValidUserName, setIsValidUserName] = useState(true);
   const [age, setAge] = useState("");
 
   const onSubmit = (event) => {
     event.preventDefault();
+
+    if (!isValidUserName) {
+      setFormErrors((prev) => [...prev, `Invalid UserName Format: ${userName}`])
+      setModalOpen(true)
+    }
 
     if (isValidUserName) {
       const user = { userName: userName, age: age };
@@ -19,6 +24,7 @@ export default function AddUserForm(props) {
       setUserName("");
       setAge("");
       setIsValidUserName(true);
+      setFormErrors([])
     }
   };
 
